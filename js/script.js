@@ -1,9 +1,11 @@
+const carousel = document.querySelector('.carousel');
 const imgSlider = document.querySelector('.img-slider');
 const btnPrev = document.querySelector('.btn-prev');
 const btnNext = document.querySelector('.btn-next');
 const thumbnails = document.querySelector('.thumbnails');
-
 let sliderCounter = 0;
+
+let autoplay = setInterval(clickNext, 3000);
 
 const images = [
   'assets/img/01.webp', 
@@ -29,6 +31,9 @@ sliderItems[sliderCounter].classList.remove('hide');
 overlayArray[sliderCounter].classList.remove('overlay-dark');
 overlayArray[sliderCounter].classList.add('overlay-active');
 
+/*****************
+    EVENTS
+******************/
 btnPrev.addEventListener('click', function() {
   sliderItems[sliderCounter].classList.add('hide');
   overlayArray[sliderCounter].classList.add('overlay-dark');
@@ -50,6 +55,14 @@ btnNext.addEventListener('click', function() {
   clickNext();
 });
 
+carousel.addEventListener('mouseover', function () {
+  clearInterval(autoplay);
+})
+
+carousel.addEventListener('mouseout', function () {
+  autoplay = setInterval(clickNext, 3000);
+})
+
 /*****************
     FUNCTIONS
 ******************/
@@ -69,5 +82,3 @@ function clickNext() {
   overlayArray[sliderCounter].classList.remove('overlay-dark');
   overlayArray[sliderCounter].classList.add('overlay-active');
 }
-
-setInterval(clickNext, 3000);
